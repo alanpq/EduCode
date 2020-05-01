@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     app: Path.resolve(__dirname, '../src/index.ts')
   },
+  target: 'node',
   output: {
     path: Path.resolve(__dirname, '../dist'),
     filename: 'js/[name].js'
@@ -32,7 +33,12 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: {
+          loader: 'ts-loader',
+          options: {
+            configFile: Path.resolve(__dirname, '../.tsconfig.json'),
+          }
+        },
         exclude: /node_modules/,
       },
       {
