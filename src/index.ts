@@ -6,6 +6,10 @@ const {
   PORT = 3000
 } = process.env;
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
+
 app.get('/', (req: Request, res: Response) => {
   res.send({
     message: 'hello world!',
