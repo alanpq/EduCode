@@ -1,0 +1,62 @@
+{
+  "name": "educode",
+  "version": "1.0.0",
+  "description": "Collaborative coding service aimed towards a teacher led group learning context.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oofsauce/EduCode.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "socket",
+    "typescript"
+  ],
+  "author": "Alan Panayotov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oofsauce/EduCode/issues"
+  },
+  "homepage": "https://github.com/oofsauce/EduCode#readme",
+  "devDependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/eslint": "^6.8.0",
+    "@types/express": "^4.17.6",
+    "@types/express-session": "^1.17.0",
+    "@types/passport": "^1.0.3",
+    "@types/passport-local": "^1.0.33",
+    "@types/pug": "^2.0.4",
+    "clean-webpack-plugin": "^3.0.0",
+    "concurrently": "^5.2.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.3",
+    "eslint": "^6.8.0",
+    "node-sass": "^4.14.0",
+    "nodemon": "^2.0.3",
+    "sass-loader": "^8.0.2",
+    "shelljs": "^0.8.4",
+    "style-loader": "^1.2.1",
+    "supertest": "^4.0.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-merge": "^4.2.2"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "dotenv": "^8.2.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "lusca": "^1.6.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pug": "^2.0.4",
+    "winston": "^3.2.1"
+  }
+}
