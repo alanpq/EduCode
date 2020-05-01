@@ -4,9 +4,10 @@
   "description": "Collaborative coding service aimed towards a teacher led group learning context.",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cross-env NODE_END=production webpack --config webpack/webpack.config.prod.js --colors",
-    "start": "webpack-dev-server --open --config webpack/webpack.config.dev.js"
+    "test": "jest",
+    "build": "webpack --colors",
+    "start:dev": "cross-env NODE_ENV=development webpack --colors",
+    "run:dev": "cross-env NODE_ENV=development nodemon build/index.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "@types/eslint": "^6.8.0",
     "@types/express": "^4.17.6",
     "@types/express-session": "^1.17.0",
+    "@types/jest": "^25.2.1",
     "@types/passport": "^1.0.3",
     "@types/passport-local": "^1.0.33",
     "@types/pug": "^2.0.4",
@@ -40,18 +42,23 @@
     "css-loader": "^3.5.3",
     "eslint": "^6.8.0",
     "file-loader": "^6.0.0",
+    "jest": "^25.5.3",
     "node-sass": "^4.14.0",
     "nodemon": "^2.0.3",
     "sass-loader": "^8.0.2",
     "shelljs": "^0.8.4",
     "style-loader": "^1.2.1",
     "supertest": "^4.0.2",
+    "test": "^0.6.0",
+    "ts-jest": "^25.4.0",
     "ts-loader": "^7.0.2",
     "typescript": "^3.8.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "webpack-node-externals": "^1.7.2",
+    "webpack-shell-plugin": "^0.5.0"
   },
   "dependencies": {
     "compression": "^1.7.4",
