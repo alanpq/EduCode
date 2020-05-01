@@ -4,7 +4,9 @@
   "description": "Collaborative coding service aimed towards a teacher led group learning context.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_END=production webpack --config webpack/webpack.config.prod.js --colors",
+    "start": "webpack-dev-server --open --config webpack/webpack.config.dev.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +35,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "concurrently": "^5.2.0",
     "copy-webpack-plugin": "^5.1.1",
+    "cross-env": "^7.0.2",
     "css-loader": "^3.5.3",
     "eslint": "^6.8.0",
     "node-sass": "^4.14.0",
