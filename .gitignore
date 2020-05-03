@@ -1,3 +1,5 @@
+build/
+
 # Logs
 logs
 *.log
@@ -104,4 +106,4 @@ dist
 .tern-port
 
 #vscode jazz
-.vscode
+.vscode/
