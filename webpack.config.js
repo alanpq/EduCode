@@ -8,7 +8,7 @@ const {
 } = process.env;
 
 module.exports = [{
-  entry: './src/index.ts',
+  entry: './src/server/index.ts',
   mode: NODE_ENV,
   target: 'node',
   watch: NODE_ENV === 'development',
@@ -43,7 +43,7 @@ module.exports = [{
   }
 },
 {
-  entry: './src/views/index.tsx',
+  entry: './src/client/index.tsx',
   mode: NODE_ENV,
   watch: NODE_ENV === 'development',
   devtool: 'inline-source-map',

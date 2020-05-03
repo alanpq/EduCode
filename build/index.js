@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.ts");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/server/index.ts");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -97,15 +97,15 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 
 /***/ }),
 
-/***/ "./src/index.ts":
-/*!**********************!*\
-  !*** ./src/index.ts ***!
-  \**********************/
+/***/ "./src/server/index.ts":
+/*!*****************************!*\
+  !*** ./src/server/index.ts ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("/* WEBPACK VAR INJECTION */(function(module) {\r\nexports.__esModule = true;\r\nvar express = __webpack_require__(/*! express */ \"express\");\r\nvar path = __webpack_require__(/*! path */ \"path\");\r\nvar app = express();\r\nvar _a = process.env.PORT, PORT = _a === void 0 ? 3000 : _a;\r\n// app.set('views', __dirname + '/views');\r\n// app.set('view engine', 'jsx');\r\n// app.engine('jsx', require('express-react-views').createEngine());\r\nconsole.log(__dirname);\r\napp.use(express.static(path.join(__dirname, 'public')));\r\n// app.get('/', (req: Request, res: Response) => {\r\n// res.render('index')\r\n// });\r\nif (__webpack_require__.c[__webpack_require__.s] === module) {\r\n    app.listen(PORT, function () {\r\n        console.log('Server started at http://localhost:' + PORT);\r\n    });\r\n}\r\nexports[\"default\"] = app;\r\n\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/module.js */ \"./node_modules/webpack/buildin/module.js\")(module)))\n\n//# sourceURL=webpack:///./src/index.ts?");
+eval("/* WEBPACK VAR INJECTION */(function(module) {\r\nexports.__esModule = true;\r\nvar express = __webpack_require__(/*! express */ \"express\");\r\nvar path = __webpack_require__(/*! path */ \"path\");\r\nvar app = express();\r\nvar _a = process.env.PORT, PORT = _a === void 0 ? 3000 : _a;\r\n// app.set('views', __dirname + '/views');\r\n// app.set('view engine', 'jsx');\r\n// app.engine('jsx', require('express-react-views').createEngine());\r\nconsole.log(__dirname);\r\napp.use(express.static(path.join(__dirname, 'public')));\r\n// app.get('/', (req: Request, res: Response) => {\r\n// res.render('index')\r\n// });\r\nif (__webpack_require__.c[__webpack_require__.s] === module) {\r\n    app.listen(PORT, function () {\r\n        console.log('Server started at http://localhost:' + PORT);\r\n    });\r\n}\r\nexports[\"default\"] = app;\r\n\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/module.js */ \"./node_modules/webpack/buildin/module.js\")(module)))\n\n//# sourceURL=webpack:///./src/server/index.ts?");
 
 /***/ }),
 
