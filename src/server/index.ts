@@ -24,8 +24,12 @@ const io = socketio(http)
 const publicPath = path.join(__dirname, 'public')
 app.use(express.static(publicPath))
 
+app.get('*client.js', (req: any, res: any) => {
+  res.sendFile(path.join(__dirname, "client.js"))
+})
+
 app.get('*', (req: Request, res: any) => {
-  res.redirect('/')
+  res.sendFile(publicPath + '/index.html')
 });
 
 if (require.main === module) {

@@ -11,6 +11,7 @@ module.exports = [{
   entry: './src/server/index.ts',
   mode: NODE_ENV,
   target: 'node',
+  devtool: 'inline-source-map',
   watch: NODE_ENV === 'development',
   externals: [nodeExternals()],
   output: {

@@ -5,8 +5,11 @@ import { DefaultLayout } from './layouts/default'
 import { Navigation } from './components/nav'
 import { Home } from './pages/home';
 import { Login } from './pages/login';
+import { Room } from './pages/room';
 
 import '../../public/style/default.scss';
+
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -28,6 +31,9 @@ function Main() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/room/:id">
+            <Room />
           </Route>
         </Switch>
       </main>
