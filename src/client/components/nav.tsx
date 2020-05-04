@@ -1,13 +1,13 @@
 import * as React from 'react'
 
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export const Navigation = () => {
   return (
     <nav>
-      <Link to="/">Home</Link>
+      <NavLink to="/" exact={true} activeClassName="active">Home</NavLink>
       <span className="flex-grow" />
-      <Link to="/login">Login</Link>
+      <NavLink to="/login" exact={true} activeClassName="active">Login</NavLink>
     </nav>
   )
 }

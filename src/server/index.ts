@@ -10,12 +10,12 @@ const {
 // app.set('views', __dirname + '/views');
 // app.set('view engine', 'jsx');
 // app.engine('jsx', require('express-react-views').createEngine());
-console.log(__dirname)
-app.use(express.static(path.join(__dirname, 'public')))
+const publicPath = path.join(__dirname, 'public')
+app.use(express.static(publicPath))
 
-// app.get('/', (req: Request, res: Response) => {
-// res.render('index')
-// });
+app.get('*', (req: Request, res: any) => {
+  res.redirect('/')
+});
 
 if (require.main === module) {
   app.listen(PORT, () => {

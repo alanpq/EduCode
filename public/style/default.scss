@@ -21,9 +21,30 @@ nav {
     line-height: $navHeight;
     text-decoration: none;
 
+    position: relative;
+
     padding: 0px 10px;
+    box-sizing: content-box;
 
     color: white;
+    outline: none;
+    
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -5px; right: 0; bottom: 0; left: 0;
+      border-top: 5px solid white;
+      transition: top 0.1s ease-in-out;
+    }
+
+    &:hover::before {
+      top: -4px;
+    }
+
+    &.active::before {
+      top: -2px;
+    }
   }
 }
 

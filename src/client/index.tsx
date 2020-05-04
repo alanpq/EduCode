@@ -11,6 +11,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  withRouter,
+  useLocation,
 } from 'react-router-dom';
 
 function Main() {
