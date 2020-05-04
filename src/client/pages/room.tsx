@@ -32,12 +32,18 @@ const Chat = (props) => {
   )
 }
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+}
+
 export const Room = (props) => {
   // usePageViews();
   const { id } = useParams();
   const [roomState, setRoomState]: [IRoom, any] = useState(null);
   const [connectingState, setConnecting] = useState(false);
+
   const history = useHistory();
+  const query = useQuery();
 
   const joinRoom = (room: RoomConnectionOptions) => {
     subscribeToRoom(room, (state) => {
@@ -66,7 +72,7 @@ export const Room = (props) => {
   }
 
   if (!connectingState) {
-    joinRoom({ roomID: id, password: '', user: null })
+    joinRoom({ roomID: id, password: query.get('pass'), user: null })
     setConnecting(true);
   }
 

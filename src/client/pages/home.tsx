@@ -6,8 +6,8 @@ import {
 import { createRoom } from '../modules/Room';
 export const Home = (props) => {
 
-  let location = useLocation();
-  let history = useHistory();
+  const location = useLocation();
+  const history = useHistory();
 
   const formSubmit = (e) => {
     e.preventDefault()
