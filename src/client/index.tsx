@@ -18,6 +18,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { Rooms } from './pages/rooms';
+import { Signup } from './pages/signup';
 
 function Main() {
   return (
@@ -32,6 +33,9 @@ function Main() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
           </Route>
           <Route path="/rooms">
             <Rooms />

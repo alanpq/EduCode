@@ -38,7 +38,7 @@ export const Rooms = (props) => {
   const [rooms, setRooms] = useState({});
 
   const reqRooms = () => {
-    fetch('/api/rooms').then(async res => JSON.parse(await res.json())).then(setRooms);
+    fetch('/api/rooms').then(async res => await res.json()).then(setRooms);
   }
 
   if (updateTimer) clearInterval(updateTimer)

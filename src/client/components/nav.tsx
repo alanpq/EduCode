@@ -9,6 +9,7 @@ export const Navigation = () => {
       <NavLink to="/rooms" exact={true} activeClassName="active">Rooms</NavLink>
       <span className="flex-grow" />
       <NavLink to="/login" exact={true} activeClassName="active">Login</NavLink>
+      <NavLink to="/signup" exact={true} activeClassName="active">Signup</NavLink>
     </nav>
   )
 }

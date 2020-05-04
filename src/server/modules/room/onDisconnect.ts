@@ -16,9 +16,12 @@ export const onDisconnect = (io: SocketIO.Server, client: SocketIO.Socket, reaso
   const room = rooms[roomID];
 
   logger.info(`Client disconnected from ${room.name} (${room.id})`)
-
   const conns = room.connections;
-  conns.splice(conns.findIndex((v, i, o) => { return v.id == roomID }));
+  const idx = conns.findIndex((v, i, o) => { return v.id == client.id });
+  //TODO: investigate potential bug where room will not self-destruct
+  if (idx == -1) return logger.error('Disconnecting client trying to leave room twice!')
+  logger.info(`Removing idx ${idx}...`)
+  conns.splice(idx, 1);
 
   if (room.host == client.id) room.host = conns[0]?.id;
 

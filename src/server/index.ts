@@ -4,9 +4,16 @@ import * as path from 'path'
 
 import { createServer } from 'http'
 import * as socketio from 'socket.io'
+import * as bodyParser from 'body-parser'
 
 import { logger } from './util/logger'
 import { onSubscribe, onCreate, onDisconnect, rooms } from './modules/roomEvents'
+import * as passport from 'passport'
+
+import { localSignup as localSignupStrategy } from './passport/local-signup'
+import { localLogin as localLoginStrategy } from './passport/local-login'
+
+import { router as authRoutes } from './routes/auth'
 
 const app = express();
 const {
@@ -19,6 +26,9 @@ const io = socketio(http, {
 })
 
 
+//TODO: input validation - max length's, etc
+//TODO: room collision detection
+
 // FIXME: major security vuln with client id handling - STOP HANDING THEM OUT
 io.on('connection', (client) => {
   client.on('subscribeToRoom', (e) => { onSubscribe(io, client, e) });
@@ -28,15 +38,30 @@ io.on('connection', (client) => {
 });
 
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+
 const publicPath = path.join(__dirname, 'public')
 app.use(express.static(publicPath))
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use('local-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
+
+
+app.use('/auth', authRoutes);
 
 app.get('*client.js', (req: any, res: any) => {
   res.sendFile(path.join(__dirname, "client.js"))
 })
 
 app.get('/api/rooms', (req: any, res: any) => {
-  res.json(JSON.stringify(rooms));
+  res.json(rooms);
 })
 
 app.get('*', (req: Request, res: any) => {
