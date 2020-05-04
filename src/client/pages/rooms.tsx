@@ -5,6 +5,7 @@ import {
   useHistory
 } from 'react-router-dom'
 import { json } from 'body-parser';
+import { IRoom } from '../../server/modals/IRoom';
 
 const usePageViews = () => {
   let location = useLocation();
@@ -16,9 +17,10 @@ const usePageViews = () => {
 
 export const RoomList = (props) => {
   const roomsDOM = [];
-  props.rooms.forEach(room => {
-    roomsDOM.push(<li key={room}>
-      <a href={`/room/${room}`}>{room}</a>
+  Object.keys(props.rooms).forEach((k: string) => {
+    const room: IRoom = props.rooms[k];
+    roomsDOM.push(<li key={room.id}>
+      <a href={`/room/${room.id}`}>{room.name}</a>
     </li>);
   })
   return (
@@ -44,6 +46,6 @@ export const Rooms = (props) => {
 
 
   return (
-    <RoomList rooms={Object.keys(rooms)} />
+    <RoomList rooms={rooms} />
   )
 }
