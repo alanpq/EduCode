@@ -10,6 +10,8 @@ import { IRoom } from './modals/IRoom'
 import { generateName } from './util/name-gen'
 //TODO: fix client side socket.io include
 
+import { v4 as uuid } from 'uuid'
+
 // var http = require('http').createServer(app);
 // var io = require('socket.io')(http);
 
@@ -26,24 +28,53 @@ const io = socketio(http, {
 })
 
 const rooms: { [id: string]: IRoom } = {}; // TODO: figure out room data storage (probably with DB stuff)
+const subscribed: { [connID: string]: string } = {};
 
 io.on('connection', (client) => {
   client.on('subscribeToRoom', (options: RoomConnectionOptions) => {
     console.log(`client wishes to subscribe to room ${options.roomID}`);
-    const room: IRoom = rooms[options.roomID];
-    if (room) { // room exists
-      if (room.password == options.password) {
+    if (rooms[options.roomID]) { // room exists
+      console.log(`room found`)
+      const room: IRoom = rooms[options.roomID];
+      console.log(room.password, options.password)
+      if (room.password == '' || room.password == options.password) {
+        console.log(`password good`)
         if (room.connections.length < room.capacity) {
           console.log(`client subscribed to room ${options.roomID}`)
-          rooms[options.roomID].connections.push({ id: client.id, displayName: options.user.displayName || generateName(2) })
+          rooms[options.roomID].connections.push({ id: client.id, displayName: options.user?.displayName || generateName(2) })
+          subscribed[client.id] = options.roomID
+          client.emit('roomState', room)
         } else {
-          client.emit('error', ConnError.ROOM_MAX_CAPACITY)
+          console.log('room full')
+          client.emit('err', ConnError.ROOM_MAX_CAPACITY)
         }
       } else {
-        client.emit('error', ConnError.UNAUTHORIZED)
+        console.log('bad password')
+        client.emit('err', ConnError.UNAUTHORIZED)
       }
     } else {
-      client.emit('error', ConnError.ROOM_NOT_FOUND)
+      console.log(`room not found`)
+      client.emit('err', ConnError.ROOM_NOT_FOUND)
+    }
+  });
+
+  client.on('createRoom', (options: IRoom) => {
+    const id = uuid();
+    rooms[id] = {
+      id: id,
+      capacity: options.capacity,
+      name: options.name,
+      password: options.password,
+      connections: [],
+    };
+    client.emit('res', id)
+  })
+
+  client.on('disconnect', (reason) => {
+    const roomID = subscribed[client.id];
+    if (roomID) {
+      const a = rooms[roomID].connections;
+      a.splice(a.findIndex((v, i, o) => { return v.id == roomID }));
     }
   });
 });
