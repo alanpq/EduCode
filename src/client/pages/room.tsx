@@ -6,7 +6,7 @@ import {
   useHistory,
 } from 'react-router-dom'
 
-import { subscribeToRoom } from '../modules/Room';
+import { subscribeToRoom, RoomConnectionOptions } from '../modules/Room';
 import { ConnError } from '../../modals/Errors';
 import { IRoom } from '../../server/modals/IRoom';
 
@@ -38,8 +38,9 @@ export const Room = (props) => {
   const [roomState, setRoomState]: [IRoom, any] = useState(null);
   const [connectingState, setConnecting] = useState(false);
   const history = useHistory();
-  if (!connectingState) {
-    subscribeToRoom({ roomID: id, password: '', user: null }, (state) => {
+
+  const joinRoom = (room: RoomConnectionOptions) => {
+    subscribeToRoom(room, (state) => {
       console.log('Got room state.')
       setRoomState(state)
     }, (err) => {
@@ -47,16 +48,25 @@ export const Room = (props) => {
       switch (err) {
         case ConnError.ROOM_MAX_CAPACITY:
           alert('Room full.')
+          history.push('/')
           break;
         case ConnError.UNAUTHORIZED:
-          alert('Wrong password.')
+          const pwd = prompt('Enter password')
+          if (pwd != null)
+            joinRoom({ roomID: room.roomID, password: pwd, user: room.user })
+          else
+            history.push('/')
           break;
         default:
           alert('Error.')
+          history.push('/')
           break
       }
-      history.push('/')
     })
+  }
+
+  if (!connectingState) {
+    joinRoom({ roomID: id, password: '', user: null })
     setConnecting(true);
   }
 

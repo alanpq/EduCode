@@ -43,6 +43,7 @@ export const Rooms = (props) => {
 
   if (updateTimer) clearInterval(updateTimer)
   updateTimer = setInterval(reqRooms, 500);
+  //TODO: clean this up with effect
 
 
   return (

@@ -16,7 +16,8 @@ export const onSubscribe = (io: SocketIO.Server, client: SocketIO.Socket, option
 
   if (room === undefined)
     return client.emit('err', ConnError.ROOM_NOT_FOUND)
-
+  logger.info(room.password)
+  logger.info(options.password)
   if (room.password != '' && room.password != options.password)
     return client.emit('err', ConnError.UNAUTHORIZED)
 

@@ -12,6 +12,7 @@ import { rooms, subscribed } from '../roomEvents'
 
 export const onCreate = (io: SocketIO.Server, client: SocketIO.Socket, options: IRoom) => {
   const id = uuid();
+  logger.info(`Creating room ${options.name} with pwd ${options.password} @ size ${options.capacity}`)
   rooms[id] = {
     id: id,
     capacity: options.capacity,

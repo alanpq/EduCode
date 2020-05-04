@@ -9,7 +9,7 @@ export interface RoomConnectionOptions {
 }
 
 export const subscribeToRoom = (options: RoomConnectionOptions, cb: any, err: any) => {
-  socket.emit('subscribeToRoom', { user: options.user, roomID: options.roomID, pwd: options.password }); // subscribe anonymously
+  socket.emit('subscribeToRoom', { user: options.user, roomID: options.roomID, password: options.password }); // subscribe anonymously
   socket.on('roomState', cb);
 
   socket.once('err', err);

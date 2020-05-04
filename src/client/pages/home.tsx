@@ -8,20 +8,24 @@ export const Home = (props) => {
 
   let location = useLocation();
   let history = useHistory();
+
+  const formSubmit = (e) => {
+    e.preventDefault()
+
+    createRoom({
+      name: e.target[0].value,
+      password: e.target[1].value,
+      capacity: parseInt(e.target[2].value),
+    }).then((id) => {
+      console.log(`Room ${id} created.`)
+      history.push(`/room/${id}`)
+    })
+  }
+
   return (
     <div>
       home
-      <form htmlaction="#" onSubmit={(e) => {
-        console.log(e.target[0])
-        createRoom({
-          name: e.target[0],
-          password: e.target[1],
-          capacity: parseInt(e.target[2]),
-        }).then((id) => {
-          history.push(`/room/${id}`)
-        })
-        e.preventDefault()
-      }}>
+      <form action="" onSubmit={formSubmit}>
         <label htmlFor="name">Room Name</label>
         <input id="name" name="name" required placeholder="Room Name" />
         <label htmlFor="pwd">Room Password</label>
