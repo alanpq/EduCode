@@ -26,9 +26,9 @@ module.exports = [{
     new CopyWebpackPlugin([
       { from: 'public', to: 'public' }
     ]),
-    new WebpackShellPlugin({
-      onBuildEnd: ['yarn run:dev']
-    }),
+    // new WebpackShellPlugin({
+    //   onBuildEnd: ['yarn run:dev']
+    // }),
   ],
   module: {
     rules: [
