@@ -17,6 +17,7 @@ import {
   withRouter,
   useLocation,
 } from 'react-router-dom';
+import { Rooms } from './pages/rooms';
 
 function Main() {
   return (
@@ -31,6 +32,9 @@ function Main() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/rooms">
+            <Rooms />
           </Route>
           <Route path="/room/:id">
             <Room />

@@ -11,15 +11,26 @@ export const Home = (props) => {
   return (
     <div>
       home
-      <button onClick={() => {
+      <form htmlaction="#" onSubmit={(e) => {
+        console.log(e.target[0])
         createRoom({
-          capacity: 5,
-          name: 'sup',
-          password: '',
+          name: e.target[0],
+          password: e.target[1],
+          capacity: parseInt(e.target[2]),
         }).then((id) => {
           history.push(`/room/${id}`)
         })
-      }}>Create Room</button>
+        e.preventDefault()
+      }}>
+        <label htmlFor="name">Room Name</label>
+        <input id="name" name="name" required placeholder="Room Name" />
+        <label htmlFor="pwd">Room Password</label>
+        <input id="pwd" name="pwd" type="password" placeholder="Room Password" />
+        <label htmlFor="capacity">Room Capacity</label>
+        <input id="capacity" name="capacity" required type="number" defaultValue="5" />
+
+        <input type="submit" value="Create Room" />
+      </form>
     </div>
   )
 }

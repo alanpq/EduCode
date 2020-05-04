@@ -8,12 +8,11 @@ export interface RoomConnectionOptions {
   password: string,
 }
 
-export const subscribeToRoom = (options: RoomConnectionOptions) => {
+export const subscribeToRoom = (options: RoomConnectionOptions, cb: any, err: any) => {
   socket.emit('subscribeToRoom', { user: options.user, roomID: options.roomID, pwd: options.password }); // subscribe anonymously
-  return new Promise((resolve, reject) => {
-    socket.once('roomState', resolve);
-    socket.once('err', reject);
-  })
+  socket.on('roomState', cb);
+
+  socket.once('err', err);
 }
 
 export const createRoom = (options: IRoom) => {

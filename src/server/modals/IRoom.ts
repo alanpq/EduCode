@@ -5,5 +5,6 @@ export interface IRoom {
   name: string;
   password: string;
   capacity: number;
+  host?: string;
   connections?: IConn[];
 }
