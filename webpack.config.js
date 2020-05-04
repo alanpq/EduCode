@@ -75,5 +75,8 @@ module.exports = [{
       }
     ]
   },
+  externals: {
+    uws: "uws"
+  },
 
 }]

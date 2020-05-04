@@ -23,7 +23,7 @@ function Main() {
       </header>
       <main>
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <Home />
           </Route>
           <Route path="/login">

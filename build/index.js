@@ -105,7 +105,7 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("/* WEBPACK VAR INJECTION */(function(module) {\r\nexports.__esModule = true;\r\nvar express = __webpack_require__(/*! express */ \"express\");\r\nvar path = __webpack_require__(/*! path */ \"path\");\r\nvar app = express();\r\nvar _a = process.env.PORT, PORT = _a === void 0 ? 3000 : _a;\r\n// app.set('views', __dirname + '/views');\r\n// app.set('view engine', 'jsx');\r\n// app.engine('jsx', require('express-react-views').createEngine());\r\nvar publicPath = path.join(__dirname, 'public');\r\napp.use(express.static(publicPath));\r\napp.get('*', function (req, res) {\r\n    res.redirect('/');\r\n});\r\nif (__webpack_require__.c[__webpack_require__.s] === module) {\r\n    app.listen(PORT, function () {\r\n        console.log('Server started at http://localhost:' + PORT);\r\n    });\r\n}\r\nexports[\"default\"] = app;\r\n\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/module.js */ \"./node_modules/webpack/buildin/module.js\")(module)))\n\n//# sourceURL=webpack:///./src/server/index.ts?");
+eval("/* WEBPACK VAR INJECTION */(function(module) {\r\nexports.__esModule = true;\r\nvar express = __webpack_require__(/*! express */ \"express\");\r\nvar path = __webpack_require__(/*! path */ \"path\");\r\nvar http_1 = __webpack_require__(/*! http */ \"http\");\r\nvar socketio = __webpack_require__(/*! socket.io */ \"socket.io\");\r\n// var http = require('http').createServer(app);\r\n// var io = require('socket.io')(http);\r\nvar app = express();\r\nvar _a = process.env.PORT, PORT = _a === void 0 ? 3000 : _a;\r\nvar http = http_1.createServer(app);\r\nvar io = socketio(http);\r\n// app.set('views', __dirname + '/views');\r\n// app.set('view engine', 'jsx');\r\n// app.engine('jsx', require('express-react-views').createEngine());\r\nvar publicPath = path.join(__dirname, 'public');\r\napp.use(express.static(publicPath));\r\napp.get('*', function (req, res) {\r\n    res.redirect('/');\r\n});\r\nif (__webpack_require__.c[__webpack_require__.s] === module) {\r\n    http.listen(PORT, function () {\r\n        console.log('Server started at http://localhost:' + PORT);\r\n    });\r\n}\r\nexports[\"default\"] = app;\r\n\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/module.js */ \"./node_modules/webpack/buildin/module.js\")(module)))\n\n//# sourceURL=webpack:///./src/server/index.ts?");
 
 /***/ }),
 
@@ -120,6 +120,17 @@ eval("module.exports = require(\"express\");\n\n//# sourceURL=webpack:///externa
 
 /***/ }),
 
+/***/ "http":
+/*!***********************!*\
+  !*** external "http" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"http\");\n\n//# sourceURL=webpack:///external_%22http%22?");
+
+/***/ }),
+
 /***/ "path":
 /*!***********************!*\
   !*** external "path" ***!
@@ -128,6 +139,17 @@ eval("module.exports = require(\"express\");\n\n//# sourceURL=webpack:///externa
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"path\");\n\n//# sourceURL=webpack:///external_%22path%22?");
+
+/***/ }),
+
+/***/ "socket.io":
+/*!****************************!*\
+  !*** external "socket.io" ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"socket.io\");\n\n//# sourceURL=webpack:///external_%22socket.io%22?");
 
 /***/ })
 
