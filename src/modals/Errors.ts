@@ -1,0 +1,6 @@
+export enum ConnError {
+  UNKNOWN = 0x00,
+  UNAUTHORIZED = 0x401,
+  ROOM_NOT_FOUND = 0x4041,
+  ROOM_MAX_CAPACITY = 0x4031,
+}

@@ -2,6 +2,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 const {
   NODE_ENV = 'production',
@@ -55,6 +56,8 @@ module.exports = [{
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
   },
+  plugins: [
+  ],
   module: {
     rules: [
       {
