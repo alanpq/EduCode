@@ -1,7 +1,7 @@
 import * as firebase from 'firebase'
 
 export const fbApp = firebase.initializeApp({
-  apiKey: "AIzaSyAhq6fBxBMN0OWxErzlczoNV2lfSepTjAQ",
+  apiKey: process.env.DB_API_KEY,
   authDomain: "educode-90989.firebaseapp.com",
   databaseURL: "https://educode-90989.firebaseio.com",
   projectId: "educode-90989",

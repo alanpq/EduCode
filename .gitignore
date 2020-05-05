@@ -105,5 +105,8 @@ dist
 # TernJS port file
 .tern-port
 
-#vscode jazz
+# vscode jazz
 .vscode/
+
+# environment variables
+*.env

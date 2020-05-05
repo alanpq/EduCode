@@ -15,6 +15,10 @@ import { localLogin as localLoginStrategy } from './passport/local-login'
 
 import { router as authRoutes } from './routes/auth'
 
+import { config } from 'dotenv'
+
+config()
+
 const app = express();
 const {
   PORT = 3000
