@@ -27,11 +27,11 @@ export const Home = (props) => {
       home
       <form action="" onSubmit={formSubmit}>
         <label htmlFor="name">Room Name</label>
-        <input id="name" name="name" required maxlength="30" placeholder="Room Name" />
+        <input id="name" required maxLength="30" placeholder="Room Name" />
         <label htmlFor="pwd">Room Password</label>
-        <input id="pwd" name="pwd" type="password" maxlength="30" placeholder="Room Password" />
+        <input id="pwd" type="password" maxLength="30" placeholder="Room Password" />
         <label htmlFor="capacity">Room Capacity</label>
-        <input id="capacity" name="capacity" required type="number" defaultValue="5" min="2" max="10" />
+        <input id="capacity" required type="number" defaultValue="5" min="2" max="10" />
 
         <input type="submit" value="Create Room" />
       </form>
