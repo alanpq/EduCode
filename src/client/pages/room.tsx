@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   useLocation,
   useParams,
   useHistory,
 } from 'react-router-dom'
 
-import { leaveRoom, subscribeToRoom, RoomConnectionOptions, me } from '../modules/Room';
+import { leaveRoom, subscribeToRoom, RoomConnectionOptions, me, socket } from '../modules/Room';
 import { ConnError } from '../../modals/Errors';
 import { IRoom } from '../../server/modals/IRoom';
 
@@ -20,15 +20,46 @@ const usePageViews = () => {
 
 const Chat = (props) => {
   const userDOM = [];
+  const chatDOM = [];
+  const userLookup = {};
+
+  const [messages, setMessages] = useState([]);
+
+
+
+  useEffect(() => {
+    socket.on('chatMsg', (msg) => {
+      setMessages([...messages, msg])
+    })
+
+    return () => {
+      socket.removeAllListeners('chatMsg')
+    }
+  });
+
   if (props.users) {
     props.users.forEach(usr => {
-      userDOM.push(<li key={usr.id} className={usr.id == me?.id ? "me" : ""}>{usr.displayName} {usr.id == props.host ? '- host' : ''} {usr.id == me?.id ? '(you)' : ''}</li>);
+      userLookup[usr.id] = usr.displayName
+      userDOM.push(<li key={usr.id} className={usr.id == me?.id ? "bold" : ""}>{usr.displayName} {usr.id == props.host ? '- host' : ''} {usr.id == me?.id ? '(you)' : ''}</li>);
     })
   }
+
+  messages.forEach((msg, idx) => {
+    chatDOM.push(
+      <li key={idx}><span className="bold">{userLookup[msg.user] || 'disconnected'}:</span> {msg.msg}</li>
+    )
+  })
+
   return (
-    <ul>
-      {userDOM}
-    </ul>
+    <section>
+      <ul>
+        {userDOM}
+      </ul>
+      Chat:
+      <ul>
+        {chatDOM}
+      </ul>
+    </section>
   )
 }
 
@@ -44,6 +75,8 @@ export const Room = (props) => {
 
   const history = useHistory();
   const query = useQuery();
+
+
 
   const joinRoom = (room: RoomConnectionOptions) => {
     subscribeToRoom(room, (state) => {
@@ -76,6 +109,13 @@ export const Room = (props) => {
     setConnecting(true);
   }
 
+  const chatInputHandler = (e) => {
+    if (e.keyCode == 13) {
+      socket.emit('chatMsg', e.target.value)
+      e.target.value = ""
+    }
+  }
+
   return (
     <div>
       <h1>{roomState?.name}</h1>
@@ -83,6 +123,7 @@ export const Room = (props) => {
       <h4>HostID: {roomState?.host}</h4>
       <a onClick={leaveRoom}>Leave Room</a>
       <Chat users={roomState?.connections} host={roomState?.host} />
+      <input onKeyDown={chatInputHandler}></input>
     </div>
   )
 }

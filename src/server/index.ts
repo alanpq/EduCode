@@ -16,6 +16,7 @@ import { localLogin as localLoginStrategy } from './passport/local-login'
 import { router as authRoutes } from './routes/auth'
 
 import { config } from 'dotenv'
+import { onMessage } from './modules/room/chat/onMessage'
 
 config()
 
@@ -38,6 +39,8 @@ io.on('connection', (client) => {
   client.on('auth', (e) => { onAuth(io, client, e) })
   client.on('subscribeToRoom', (e) => { onSubscribe(io, client, e) });
   client.on('createRoom', (e) => { onCreate(io, client, e) })
+
+  client.on('chatMsg', (e) => { onMessage(io, client, e) })
 
   client.on('leaveRoom', (e) => { onLeave(io, client, e) });
   client.on('disconnect', (e) => { onDisconnect(io, client, e) });

@@ -1,6 +1,6 @@
 import * as io from 'socket.io-client';
 import { IRoom } from '../../server/modals/IRoom';
-const socket = io();
+export const socket: SocketIO.Socket = io();
 
 // TODO: client user interface
 // TODO: put 'me' variable somewhere better
