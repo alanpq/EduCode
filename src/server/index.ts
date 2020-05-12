@@ -7,7 +7,7 @@ import * as socketio from 'socket.io'
 import * as bodyParser from 'body-parser'
 
 import { logger } from './util/logger'
-import { onSubscribe, onCreate, onDisconnect, rooms } from './modules/roomEvents'
+import { onAuth, onSubscribe, onCreate, onLeave, rooms, onDisconnect } from './modules/socketEvents'
 import * as passport from 'passport'
 
 import { localSignup as localSignupStrategy } from './passport/local-signup'
@@ -30,14 +30,16 @@ const io = socketio(http, {
 })
 
 
-//TODO: input validation - max length's, etc
-//TODO: room collision detection
+// TODO: input validation - max length's, etc
+// TODO: room collision detection
 
 // FIXME: major security vuln with client id handling - STOP HANDING THEM OUT
 io.on('connection', (client) => {
+  client.on('auth', (e) => { onAuth(io, client, e) })
   client.on('subscribeToRoom', (e) => { onSubscribe(io, client, e) });
   client.on('createRoom', (e) => { onCreate(io, client, e) })
 
+  client.on('leaveRoom', (e) => { onLeave(io, client, e) });
   client.on('disconnect', (e) => { onDisconnect(io, client, e) });
 });
 
@@ -45,18 +47,20 @@ io.on('connection', (client) => {
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
 
 const publicPath = path.join(__dirname, 'public')
 app.use(express.static(publicPath))
-
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
-
 
 app.use('/auth', authRoutes);
 
