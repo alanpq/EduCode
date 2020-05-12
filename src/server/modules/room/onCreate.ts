@@ -14,7 +14,8 @@ export const onCreate = (io: SocketIO.Server, client: SocketIO.Socket, options: 
     return client.emit('err', ConnError.UNAUTHORIZED)
   }
   const roomID = uuid();
-  options.name = options.name.substr(0, 30);
+  options.name = options.name.trim().substr(0, 30);
+  if (!options.name) return; // TODO: return better response here
   options.password = options.password.substr(0, 30);
   options.capacity = Math.min(10, Math.max(2, options.capacity))
   logger.info(`Creating room '${options.name}' with pwd '${options.password}' @ size ${options.capacity}`)
