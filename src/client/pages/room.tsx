@@ -6,7 +6,7 @@ import {
   useHistory,
 } from 'react-router-dom'
 
-import { subscribeToRoom, RoomConnectionOptions } from '../modules/Room';
+import { leaveRoom, subscribeToRoom, RoomConnectionOptions, me } from '../modules/Room';
 import { ConnError } from '../../modals/Errors';
 import { IRoom } from '../../server/modals/IRoom';
 
@@ -22,7 +22,7 @@ const Chat = (props) => {
   const userDOM = [];
   if (props.users) {
     props.users.forEach(usr => {
-      userDOM.push(<li key={usr.id}>{usr.displayName} {usr.id == props.host ? '- host' : ''}</li>);
+      userDOM.push(<li key={usr.id} className={usr.id == me?.id ? "me" : ""}>{usr.displayName} {usr.id == props.host ? '- host' : ''} {usr.id == me?.id ? '(you)' : ''}</li>);
     })
   }
   return (
@@ -81,6 +81,7 @@ export const Room = (props) => {
       <h1>{roomState?.name}</h1>
       <h3>RoomID: {id}</h3>
       <h4>HostID: {roomState?.host}</h4>
+      <a onClick={leaveRoom}>Leave Room</a>
       <Chat users={roomState?.connections} host={roomState?.host} />
     </div>
   )
