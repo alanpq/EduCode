@@ -11,7 +11,7 @@ export const localLogin = new PLocalStrat({
   passwordField: 'password',
   session: false,
   passReqToCallback: true,
-}, (req, usr, pwd, done) => {
+}, (req: any, usr, pwd, done) => {
   const userData = {
     username: usr.trim(),
     password: pwd.trim()
