@@ -1,8 +1,11 @@
 import * as React from 'react'
-import { useState } from 'react'
+import {
+  useState,
+  useEffect,
+} from 'react'
 import {
   useLocation,
-  useHistory
+  useHistory,
 } from 'react-router-dom'
 import { json } from 'body-parser';
 import { IRoom } from '../../server/modals/IRoom';
@@ -30,20 +33,23 @@ export const RoomList = (props) => {
   );
 }
 
-let updateTimer: NodeJS.Timeout;
 
 export const Rooms = (props) => {
   usePageViews();
 
   const [rooms, setRooms] = useState({});
+  let updateTimer: NodeJS.Timeout;
+
+  useEffect(() => {
+    updateTimer = setInterval(reqRooms, 500);
+    return () => {
+      clearInterval(updateTimer)
+    }
+  })
 
   const reqRooms = () => {
     fetch('/api/rooms').then(async res => await res.json()).then(setRooms);
   }
-
-  if (updateTimer) clearInterval(updateTimer)
-  updateTimer = setInterval(reqRooms, 500);
-  //TODO: clean this up with effect
 
 
   return (
