@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 
 import '../../../public/style/solo-form.scss'
 import { UserContext } from '..';
+import { socket } from '../modules/Room';
 
 const usePageViews = () => {
   let location = useLocation();
@@ -29,7 +30,8 @@ export const Login = (props) => {
     } as unknown).then((res) => res.json()).then((res) => {
       if (res.success) {
         setUser(res.user)
-        console.log("Successful login.", res.user)
+        console.log("Successful login.", res)
+        socket.emit('auth', res.token)
       } else {
         console.error("Bad Login")
         console.error(res)

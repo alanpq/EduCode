@@ -18,7 +18,7 @@ import { router as authRoutes } from './routes/auth'
 import { config } from 'dotenv'
 import { onMessage } from './modules/room/chat/onMessage'
 
-config()
+config({ path: path.join(__dirname, 'config.env') })
 
 const app = express();
 const {

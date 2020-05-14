@@ -12,5 +12,6 @@ export const rooms: { [id: string]: IRoom } = {};
 export const subscribed: { [connID: string]: string } = {};
 
 export const connectionIDs = {} // map of socket id to user id
+export const connectedUser = {} // map of socket id to connected user (non anonymous users)
 
 export { onAuth, onCreate, onLeave, onSubscribe, onDisconnect }

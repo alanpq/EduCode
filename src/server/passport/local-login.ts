@@ -41,7 +41,7 @@ export const localLogin = new PLocalStrat({
 
         // create a token string
         //TODO: handle jwt secret
-        const token = jwt.sign(payload, 'super duper secret baby')
+        const token = jwt.sign(payload, process.env.JWT_SECRET)
 
         return done(null, token, user as unknown as IVerifyOptions)
         break;

@@ -77,7 +77,7 @@ export const Room = (props) => {
   const query = useQuery();
 
 
-
+  // TODO: stop using alerts and prompts
   const joinRoom = (room: RoomConnectionOptions) => {
     subscribeToRoom(room, (state) => {
       console.log('Got room state.')
