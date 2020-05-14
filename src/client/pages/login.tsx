@@ -2,6 +2,7 @@ import * as React from 'react'
 import { useLocation } from 'react-router-dom'
 
 import '../../../public/style/solo-form.scss'
+import { UserContext } from '..';
 
 const usePageViews = () => {
   let location = useLocation();
@@ -14,8 +15,7 @@ const usePageViews = () => {
 export const Login = (props) => {
   usePageViews();
 
-  const submitForm = (e) => {
-    console.log(e)
+  const submitForm = (e, setUser) => {
     e.preventDefault()
     fetch('/auth/login', {
       method: 'POST',
@@ -26,19 +26,29 @@ export const Login = (props) => {
         username: e.target[0].value,
         password: e.target[1].value,
       })
-    } as unknown).then((e) => {
-      console.log(e)
+    } as unknown).then((res) => res.json()).then((res) => {
+      if (res.success) {
+        setUser(res.user)
+        console.log("Successful login.", res.user)
+      } else {
+        console.error("Bad Login")
+        console.error(res)
+      }
     })
   }
 
   return (
-    <form className="solo-form" action="" onSubmit={submitForm}>
-      <h1>Login</h1>
-      <label htmlFor="username">Username:</label>
-      <input name="username" id="username" placeholder="username" />
-      <label htmlFor="password">Password:</label>
-      <input name="password" id="password" type="password" placeholder="password" />
-      <input type="submit" value="Log in" />
-    </form>
+    <UserContext.Consumer>
+      {({ user, setUser }) =>
+        <form className="solo-form" action="" onSubmit={(e) => { submitForm(e, setUser) }}>
+          <h1>Login</h1>
+          <label htmlFor="username">Username:</label>
+          <input id="username" placeholder="username" />
+          <label htmlFor="password">Password:</label>
+          <input id="password" type="password" placeholder="password" />
+          <input type="submit" value="Log in" />
+        </form>
+      }
+    </UserContext.Consumer>
   )
 }
