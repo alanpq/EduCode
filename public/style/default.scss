@@ -27,13 +27,14 @@ main.react {
   }
 }
 
+$navHeight: 2.3rem;
 nav {
   display: flex;
   background: black;
 
   font-size: 20px;
 
-  $navHeight: 2em;
+  height: $navHeight;
   a {
     height: $navHeight;
     line-height: $navHeight;
@@ -101,4 +102,31 @@ a {
 
 .bold {
   font-weight: bold;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  height: $navHeight;
+
+  overflow: hidden;
+
+  transition: height 0.2s ease-in-out;
+
+
+  &:hover {
+    height: 120px;
+  }
+
+  a {
+    min-height: $navHeight;
+    background: black;
+    overflow: hidden;
+    z-index: 9;
+
+    &:last-child {
+      z-index: 10;
+    }
+  }
 }

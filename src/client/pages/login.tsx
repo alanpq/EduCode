@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 
 import '../../../public/style/solo-form.scss'
 import { UserContext } from '..';
 import { socket } from '../modules/Room';
 
 const usePageViews = () => {
-  let location = useLocation();
+  const location = useLocation();
   React.useEffect(() => {
     // ga.send(["pageview", location.pathname]);
     // TODO: analytics
@@ -15,6 +15,8 @@ const usePageViews = () => {
 
 export const Login = (props) => {
   usePageViews();
+
+  const history = useHistory()
 
   const submitForm = (e, setUser) => {
     e.preventDefault()
@@ -32,6 +34,7 @@ export const Login = (props) => {
         setUser(res.user)
         console.log("Successful login.", res)
         socket.emit('auth', res.token)
+        history.push('/')
       } else {
         console.error("Bad Login")
         console.error(res)
