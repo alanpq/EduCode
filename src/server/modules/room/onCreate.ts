@@ -5,9 +5,12 @@ import { logger } from '../../util/logger'
 import { ConnError } from '../../../modals/Errors'
 import { IRoom } from '../../modals/IRoom';
 
-import { rooms, subscribed, connectionIDs } from '../socketEvents'
+import { rooms, subscribed, connectionIDs, connectedUser } from '../socketEvents'
+import { socket } from '../../../client/modules/Room';
 
 export const onCreate = (io: SocketIO.Server, client: SocketIO.Socket, options: IRoom) => {
+  if (!connectedUser[client.id])
+    return client.emit('err', ConnError.INVALID_PERMS)
   const id = connectionIDs[client.id];
   if (!id) {
     logger.error("No-auth client attempting to create a room!")
