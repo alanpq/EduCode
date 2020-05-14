@@ -27,7 +27,7 @@ export const localLogin = new PLocalStrat({
       case 1:
         const user = snap.docs[0].data()
         const payload = {
-          sub: user.id
+          sub: snap.docs[0].id
         };
 
         const match = await bcrypt.compare(req.body.password, user.password)

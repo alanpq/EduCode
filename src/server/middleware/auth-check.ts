@@ -1,6 +1,8 @@
 const config = require('../../config');
 
 import * as jwt from 'jsonwebtoken'
+import { dbCollections } from '../modules/db';
+import { logger } from '../util/logger';
 
 
 /**
@@ -19,11 +21,20 @@ module.exports = (req, res, next) => {
     // the 401 code is for unauthorized status
     if (err) { return res.status(401).end(); }
 
-    const userId = decoded.sub;
-
     //TODO: have user db
-    req.user = {};
-    return next();
+    // req.user = {};
+    // return next();
+
+    const docID = decoded.sub
+
+    dbCollections.users.doc(docID).get().then((snap) => {
+      logger.info('auth success')
+      req.user = snap.data()
+      return next()
+    }).catch(() => {
+      logger.error("invalid login")
+      return res.status(401).end()
+    })
 
     // check if a user exists
     // return User.findById(userId, (userErr, user) => {

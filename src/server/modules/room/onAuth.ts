@@ -9,6 +9,7 @@ import { connectionIDs } from '../socketEvents'
 export const onAuth = (io: SocketIO.Server, client: SocketIO.Socket, params: any) => {
   if (params?.token) { // ATTEMPTING LOGIN WITH TOKEN
     // TODO: implement token login
+    logger.info(`User logging in with token: ${params.token}`) //TODO: remove me
   } else {            // ANONYMOUS LOGIN
     const id = uuid();
     connectionIDs[client.id] = id
