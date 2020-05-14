@@ -6,7 +6,7 @@ import { logger } from '../../util/logger'
 import { ConnError } from '../../../modals/Errors'
 import { IRoom } from '../../modals/IRoom';
 
-import { rooms, subscribed, connectionIDs } from '../socketEvents'
+import { rooms, subscribed, connectionIDs, connectedUser } from '../socketEvents'
 
 export const onSubscribe = (io: SocketIO.Server, client: SocketIO.Socket, options: RoomConnectionOptions) => {
   const id = connectionIDs[client.id];
@@ -35,7 +35,7 @@ export const onSubscribe = (io: SocketIO.Server, client: SocketIO.Socket, option
 
   rooms[options.roomID].connections.push({
     id: id,
-    displayName: options.user?.displayName || generateName(2)
+    displayName: connectedUser[client.id]?.username || generateName(2)
   })
 
   subscribed[id] = options.roomID
