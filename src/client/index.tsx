@@ -22,6 +22,7 @@ import {
 } from 'react'
 import { Rooms } from './pages/rooms';
 import { Signup } from './pages/signup';
+import { CreateRoom } from './pages/createroom';
 
 export const UserContext = React.createContext({ user: null, setUser: () => { } })
 
@@ -38,17 +39,20 @@ function Main() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/login">
+            <Route exact path="/login">
               <Login />
             </Route>
-            <Route path="/signup">
+            <Route exact path="/signup">
               <Signup />
             </Route>
-            <Route path="/rooms">
-              <Rooms />
+            <Route exact path="/createroom">
+              <CreateRoom />
             </Route>
-            <Route path="/room/:id">
+            <Route exact path="/room/:id">
               <Room />
+            </Route>
+            <Route exact path="/rooms">
+              <Rooms />
             </Route>
           </Switch>
         </main>
