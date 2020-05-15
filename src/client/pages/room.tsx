@@ -71,10 +71,16 @@ export const Room = (props) => {
   // usePageViews();
   const { id } = useParams();
   const [roomState, setRoomState]: [IRoom, any] = useState(null);
-  const [connectingState, setConnecting] = useState(false);
+  // const [connectingState, setConnecting] = useState(false);
 
   const history = useHistory();
   const query = useQuery();
+
+  useEffect(() => {
+    if (roomState) return
+    console.log(`Joining room ${id}`)
+    joinRoom({ roomID: id, password: query.get('pass'), user: null })
+  })
 
 
   // TODO: stop using alerts and prompts
@@ -104,10 +110,10 @@ export const Room = (props) => {
     })
   }
 
-  if (!connectingState) {
-    joinRoom({ roomID: id, password: query.get('pass'), user: null })
-    setConnecting(true);
-  }
+  // if (!connectingState) {
+  //   joinRoom({ roomID: id, password: query.get('pass'), user: null })
+  //   setConnecting(true);
+  // }
 
   const chatInputHandler = (e) => {
     if (e.keyCode == 13) {
