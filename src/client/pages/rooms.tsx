@@ -6,6 +6,7 @@ import {
 import {
   useLocation,
   useHistory,
+  NavLink
 } from 'react-router-dom'
 import { json } from 'body-parser';
 import { IRoom } from '../../server/modals/IRoom';
@@ -23,7 +24,7 @@ export const RoomList = (props) => {
   Object.keys(props.rooms).forEach((k: string) => {
     const room: IRoom = props.rooms[k];
     roomsDOM.push(<li key={room.id}>
-      <a href={`/room/${room.id}`}>{room.name}</a>
+      <NavLink to={`/room/${room.id}`}>{room.name}</NavLink>
     </li>);
   })
   return (
